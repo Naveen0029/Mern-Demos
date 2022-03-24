@@ -1,10 +1,23 @@
-getUser(1)
-  .then(user=>getRepositories(user.gitHubUsername))
-  .then(repos=>console.log(repos))
-  .catch(error=>console.log('Error',error.message));
 
-//Replacing callback with promises
+//Async and await approch
 console.log('Before');
+async function displayCommits(){
+    try{ 
+        const user = await getUser(1);
+        const repos = await getRepositories(user.gitHubUsername);
+        console.log(repos);
+    }
+    catch(err){
+      console.log(err);
+    }
+    
+}
+
+displayCommits();
+
+console.log('After');
+
+
 function getUser(id){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
@@ -23,4 +36,5 @@ function getRepositories(username){
     })
     
 }
+
 
